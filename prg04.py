@@ -30,6 +30,25 @@ while True:
             print("{}       {}  {} {}   {}"\
                 .format(number, room, date, time, user))
         print()
+    #if the user enters 4 add the reservation
+    if selection.strip()=="4":
+    	cursor.execute("SELECT count(*) FROM ReservationsView WHERE room = ? &&  date = ? && time =?"(room,date,time,))
+    	data=cursor.fetchone()[0]
+    	if data==0:
+    		enterID = input("please enter your ID number")
+    		room = str(input("please enter your the Building & Room"))
+    		date = date(input("please enter the date in the format (YYYY/MM/DD)"))
+    		time = str(input("please enter time time you wish to reserve it from in format (start-end)"))
+    		newRoom = room.split("-")
+    		buid = newRoom[0]
+    		roomNum = newRoom[1]
+    		determineTime = time.split("-")
+    		startTime = time(determineTime[0])
+    		endTime = time(determineTime[1])
+    		cursor.execute("Insert into Rservations values(null,%s,%s,%s,%s,%s)"(date,startTime,endTime,build,roomNum))
+    # if the user enters 3 to delete a reservation
+    if selection.strip()=="3":
+    	
 
     # if the input is neither 1, 2, 3, or 4, then print an error statement
     else:
