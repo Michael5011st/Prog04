@@ -44,8 +44,9 @@ while True:
         cursor.execute("SELECT count(*) FROM ReservationsView WHERE room = %s &&  date = %s && time =%s",(room,date,time))
         data=cursor.fetchone()[0]
         if data==0:
-            enterID = str(input("please enter your ID number: "))
-            cursor.execute("Insert into Reservations values(null,%s,%s,%s,%s,%s,%s)",(date,startTime,endTime,enterID,build,roomNum))
+            enterID = input("please enter your ID number: ")
+            cursor.execute("Insert into Reservations values(null,%s,%s,%s,%s,%s,%s)",\
+                           (date,startTime,endTime,enterID,build,roomNum))
 
     # if the user enters 3 to delete a reservation
     elif selection.strip()=="3":
