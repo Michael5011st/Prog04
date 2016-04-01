@@ -21,7 +21,7 @@ while True:
         break
 
     # if the input is 1, print all current reservations
-    if selection.strip() == "1":
+    elif selection.strip() == "1":
         cursor.execute("SELECT * FROM ReservationsView;")
 
         print("Number  Room       Date       Time                User")
@@ -30,25 +30,26 @@ while True:
             print("{}       {}  {} {}   {}"\
                 .format(number, room, date, time, user))
         print()
-    #if the user enters 4 add the reservation
-    if selection.strip()=="4":
-    		room = str(input("please enter your the Building & Room"))
-    		date = date(input("please enter the date in the format (YYYY/MM/DD)"))
-    		time = str(input("please enter time time you wish to reserve it from in format (start-end)"))
-    		newRoom = room.split("-")
-    		buid = newRoom[0]
-    		roomNum = newRoom[1]
-    		determineTime = time.split("-")
-    		startTime = time(determineTime[0])
-    		endTime = time(determineTime[1])
-    	cursor.execute("SELECT count(*) FROM ReservationsView WHERE room = ? &&  date = ? && time =?"(room,date,time,))
-    	data=cursor.fetchone()[0]
-    	if data==0:
-    		enterID = input("please enter your ID number")
-    		cursor.execute("Insert into Rservations values(null,%s,%s,%s,%s,%s,%s)"(date,startTime,endTime,enterID,build,roomNum))
+    #if the user enters 2 add the reservation
+    elif selection.strip()=="2":
+        room = str(input("please enter your the Building & Room: "))
+        date = input("please enter the date in the format (YYYY-MM-DD): ")
+        time = str(input("please enter time time you wish to reserve it from in format (start-end): "))
+        newRoom = room.split("-")
+        build = newRoom[0]
+        roomNum = newRoom[1]
+        determineTime = time.split("-")
+        startTime = determineTime[0]
+        endTime = determineTime[1]
+        cursor.execute("SELECT count(*) FROM ReservationsView WHERE room = %s &&  date = %s && time =%s",(room,date,time))
+        data=cursor.fetchone()[0]
+        if data==0:
+            enterID = str(input("please enter your ID number: "))
+            cursor.execute("Insert into Reservations values(null,%s,%s,%s,%s,%s,%s)",(date,startTime,endTime,enterID,build,roomNum))
+
     # if the user enters 3 to delete a reservation
-    if selection.strip()=="3":
-    	
+    elif selection.strip()=="3":
+        print("hi")
 
     # if the input is neither 1, 2, 3, or 4, then print an error statement
     else:
